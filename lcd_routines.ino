@@ -25,7 +25,7 @@
 
 //lcd_routines:
 uint8_t lcd_index_1 = 0;
-uint8_t lcd_index_2 = 0;
+uint8_t lcd_index_2 = 1;
 uint8_t lcd_index_3 = 0;
 
 uint8_t CharFlechaTilde[8] = { //Index: 0
