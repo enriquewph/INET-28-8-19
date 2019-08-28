@@ -10,6 +10,7 @@
 #define PIN_HUMEDAD A1
 #define PIN_LDR A0
 
+
 #define PIN_RELAY_MOTOR 3
 #define PIN_RELAY_CALEFACTOR 4
 #define PIN_RELAY_RIEGO 5
