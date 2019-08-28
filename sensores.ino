@@ -27,7 +27,7 @@ void IO_rutina()
     HUMEDAD = HUM_leer();
     TEMPERATURA = TEMP_leer();
     LUX = LDR_leer();
-    control_TEMP();
+    control_HUMEDAD();
 
     Serial.println("Temperatura: " + String(TEMPERATURA));
     Serial.println("humedad actual: " + String(HUMEDAD) + "  humedad minima: " + String(HUMEDAD_BAJA_TRIGGER) + "  humedad maxima: " + String(HUMEDAD_BAJA_RELEASE));
