@@ -32,6 +32,7 @@ void IO_rutina()
     Serial.println("humedad: " + String(b));
     Serial.println("lux: " + String(c));
 }
+
 uint16_t ADC_LEER_PROMEDIO(uint8_t pin, uint8_t mediciones)
 {
     uint32_t adcReads = 0;
@@ -42,3 +43,5 @@ uint16_t ADC_LEER_PROMEDIO(uint8_t pin, uint8_t mediciones)
     }
     return (adcReads / mediciones);
 }
+
+
