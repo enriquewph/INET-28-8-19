@@ -4,5 +4,5 @@
     "programmer": "AVRISP mkII",
     "output": "../ard_builds",
     "configuration": "cpu=atmega2560",
-    "port": "COM22"
+    "port": "COM30"
 }

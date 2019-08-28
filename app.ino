@@ -13,6 +13,7 @@ void setup()
 {
     // put your setup code here, to run once:
     timer_entradas = millis();
+    lcd_subrutina_init();
 }
 
 void loop()
@@ -22,7 +23,7 @@ void loop()
 
     if (millis() >= timer_entradas + TIMER_ENTRADAS_TIEMPO)
     {
-        IO_rutina();
+        //IO_rutina();
         timer_entradas = millis();
     }
 }

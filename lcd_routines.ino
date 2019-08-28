@@ -28,8 +28,6 @@ uint8_t lcd_index_1 = 0;
 uint8_t lcd_index_2 = 0;
 uint8_t lcd_index_3 = 0;
 
-LiquidCrystal_I2C lcd(0x27, 20, 4); // set the LCD address to 0x27 for a 16 chars and 2 line display
-
 uint8_t CharFlechaTilde[8] = { //Index: 0
     0b00000,
     0b00000,
@@ -50,9 +48,10 @@ uint8_t CharFlechaVolver[8] = { //Index: 1
     0b00111,
     0b00000};
 
-void lcd_routines_init()
+void lcd_subrutina_init()
 {
     lcd.init();
+    lcd.begin(20, 4);
     // Print a message to the LCD.
     lcd.backlight();
     lcd.createChar(0, CharFlechaTilde);
@@ -89,7 +88,8 @@ void lcd_subrutina_printModo()
 
 void lcd_subrutina_screenInfo()
 {
-    lcd.printf("TEMP:%f3.1C LUZ:%i4L", TEMPERATURA, LUX);
+    sprintf(lcdBuffer, "TEMP:%f3.1C LUZ:%i4L", TEMPERATURA, LUX);
+    lcd.print(lcdBuffer);
 
     lcd.setCursor(0, 1);
     if (FUNCIONAMIENTO_TEMP == MODO_TEMP_STANDBY)
@@ -100,7 +100,8 @@ void lcd_subrutina_screenInfo()
         lcd.print(F("ENFRIANDO  "));
 
     lcd.setCursor(0, 2);
-    lcd.printf(" HUM:%i3%% ", HUMEDAD);
+    sprintf(lcdBuffer, " HUM:%i3%% ", HUMEDAD);
+    lcd.print(lcdBuffer);
 
     lcd.setCursor(0, 3);
     if (FUNCIONAMIENTO_REGADO == MODO_REGADO_APAGADO)
@@ -109,7 +110,8 @@ void lcd_subrutina_screenInfo()
         lcd.print(F("REGANDO     VOLVER:X"));
 
     lcd.setCursor(10, 1);
-    lcd.printf("LUCES:%i3%%", POTENCIA_LUCES);
+    sprintf(lcdBuffer, "LUCES:%i3%%", POTENCIA_LUCES);
+    lcd.print(lcdBuffer);
 
     lcd.setCursor(14, 2);
     if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
@@ -120,7 +122,7 @@ void lcd_subrutina_screenInfo()
 
 void lcd_menu_update()
 {
-    LCD_setCursor(0, 0);
+    lcd.setCursor(0, 0);
 
     switch (lcd_index_1)
     {
