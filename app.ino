@@ -19,6 +19,7 @@ void setup()
 void loop()
 {
     lcd_menu_update();
+    teclado_update();
 
     if (millis() >= timer_entradas + TIMER_ENTRADAS_TIEMPO)
     {

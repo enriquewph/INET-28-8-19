@@ -157,6 +157,9 @@ void lcd_menu_update()
             lcd.setCursor(0, 2);
             lcd_subrutina_printFlecha(0);
             lcd.print(F("EVENTOS            "));
+            
+            lcd.setCursor(0, 3);
+            lcd.print(F("                    "));
             break;
         }
         break;
@@ -173,6 +176,9 @@ void lcd_menu_update()
             lcd.setCursor(0, 2);
             lcd_subrutina_printFlecha(1);
             lcd.print(F("EVENTOS            "));
+
+            lcd.setCursor(0, 3);
+            lcd.print(F("                    "));
             break;
         }
         break;
