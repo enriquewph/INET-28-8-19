@@ -25,4 +25,12 @@ uint16_t LDR_leer()
 
 void IO_rutina()
 {
+    float a = TEMP_leer();
+    Serial.println("Temperatura: " + String(a));
+
+    float b = HUM_leer();
+    Serial.println("humedad: " + String(b));
+
+    uint16_t c = LDR_leer();
+    Serial.println("lux: " + String(c));
 }
