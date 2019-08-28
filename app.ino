@@ -18,11 +18,11 @@ void setup()
 
 void loop()
 {
-    //lcd_menu_update();
+    lcd_menu_update();
 
     if (millis() >= timer_entradas + TIMER_ENTRADAS_TIEMPO)
     {
-        //IO_rutina();
+        IO_rutina();
         timer_entradas = millis();
     }
 }

@@ -48,6 +48,48 @@ uint8_t CharFlechaVolver[8] = { //Index: 1
     0b00111,
     0b00000};
 
+uint8_t CharCentigrados[8] = { //Index: 2
+    0x18,
+    0x18,
+    0x03,
+    0x04,
+    0x04,
+    0x04,
+    0x03,
+    0x00};
+
+uint8_t CharVolver[8] = { //Index: 3
+    0x04,
+    0x08,
+    0x1E,
+    0x09,
+    0x05,
+    0x01,
+    0x11,
+    0x0E};
+    
+uint8_t CharFlechaAbajo[8] = { //Index: 4
+  0x00,
+  0x04,
+  0x04,
+  0x04,
+  0x15,
+  0x0E,
+  0x04,
+  0x00
+};
+
+uint8_t CharFlechaArriba[8] = { //Index: 5
+  0x00,
+  0x04,
+  0x0E,
+  0x15,
+  0x04,
+  0x04,
+  0x04,
+  0x00
+};
+
 void lcd_subrutina_init()
 {
     lcd.init();
@@ -56,6 +98,10 @@ void lcd_subrutina_init()
     lcd.backlight();
     lcd.createChar(0, CharFlechaTilde);
     lcd.createChar(1, CharFlechaVolver);
+    lcd.createChar(2, CharCentigrados);
+    lcd.createChar(3, CharVolver);
+    lcd.createChar(4, CharFlechaAbajo);
+    lcd.createChar(5, CharFlechaArriba);
     lcd.home();
 }
 
@@ -88,30 +134,44 @@ void lcd_subrutina_printModo()
 
 void lcd_subrutina_screenInfo()
 {
-    sprintf(lcdBuffer, "TEMP:%f3.1C LUZ:%i4L", TEMPERATURA, LUX);
+    double temp_double = TEMPERATURA;
+    lcd.print(dtostrf(temp_double, 5, 2, lcdBuffer));
+    /*
+    char* dtostrf 	( 	double  	__val,
+		signed char  	__width,
+		unsigned char  	__prec,
+		char *  	__s 
+	) 	
+    */
+    lcd.write(2);
+
+    sprintf(lcdBuffer, " |%3u%%", HUMEDAD);
+    lcd.print(lcdBuffer);
+
+    sprintf(lcdBuffer, "| %4uLx", LUX);
     lcd.print(lcdBuffer);
 
     lcd.setCursor(0, 1);
+    lcd.print(F("ESTADO"));
+    lcd.write(4);
+    lcd.print(F("   LUCES:"));
+    sprintf(lcdBuffer, "%3u%%", POTENCIA_LUCES);
+    lcd.print(lcdBuffer);
+
+    lcd.setCursor(0, 2);
     if (FUNCIONAMIENTO_TEMP == MODO_TEMP_STANDBY)
-        lcd.print(F("STANDBY"));
+        lcd.print(F("TEMP: OK   "));
     else if (FUNCIONAMIENTO_TEMP == MODO_TEMP_CALENTANDO)
         lcd.print(F("CALENTANDO "));
     else if (FUNCIONAMIENTO_TEMP == MODO_TEMP_ENFRIANDO)
         lcd.print(F("ENFRIANDO  "));
 
-    lcd.setCursor(0, 2);
-    sprintf(lcdBuffer, " HUM:%i3%% ", HUMEDAD);
-    lcd.print(lcdBuffer);
-
     lcd.setCursor(0, 3);
     if (FUNCIONAMIENTO_REGADO == MODO_REGADO_APAGADO)
-        lcd.print(F("STANDBY     VOLVER:X"));
+        lcd.print(F("RIEGO: OFF  VOLVER:"));
     else
-        lcd.print(F("REGANDO     VOLVER:X"));
-
-    lcd.setCursor(10, 1);
-    sprintf(lcdBuffer, "LUCES:%i3%%", POTENCIA_LUCES);
-    lcd.print(lcdBuffer);
+        lcd.print(F("RIEGO: ON   VOLVER:"));
+    lcd.write(3);
 
     lcd.setCursor(14, 2);
     if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
