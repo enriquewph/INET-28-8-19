@@ -6,21 +6,24 @@ INTEGRANTES:
 - Philippeaux, Enrique
 */
 
-
-void setup() {
-  // put your setup code here, to run once:
-Serial.begin(9600);
+void setup()
+{
+    // put your setup code here, to run once:
+    Serial.begin(9600);
 }
 
-void loop() {
-  float a =TEMP_leer();
-  Serial.println("Temperatura: " + String(a));
+void loop()
+{
+    float a = TEMP_leer();
+    Serial.println("Temperatura: " + String(a));
 
-  float b =HUM_leer();
-  Serial.println("humedad: " + String(b));
+    float b = HUM_leer();
+    Serial.println("humedad: " + String(b));
 
-  uint16_t c =LDR_leer();
-  Serial.println("lux: " + String(c));
+    uint16_t c = LDR_leer();
+    Serial.println("lux: " + String(c));
 
-  delay(2000);
+    delay(2000);
+    // put your main code here, to run repeatedly:
+    lcd_menu_update();
 }
