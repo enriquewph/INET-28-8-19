@@ -65,18 +65,57 @@ void lcd_subrutina_printFlecha(uint8_t flecha)
     switch (flecha)
     {
     case 0: //No flecha
-        LCD_write(' ');
+        lcd.print(' ');
         break;
     case 1: //Tilde sola
-        LCD_write('>');
+        lcd.print('>');
         break;
     case 2: //Flecha sola
-        LCD_write('-');
+        lcd.print('-');
         break;
     case 3: //Flecha + Tilde
-        LCD_write(0);
+        lcd.print(0);
         break;
     }
+}
+
+void lcd_subrutina_printModo()
+{
+    if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
+        lcd.print(F("AUTOMATICO   "));
+    else
+        lcd.print(F("MANUAL       "));
+}
+
+void lcd_subrutina_screenInfo()
+{
+    lcd.printf("TEMP:%f3.1C LUZ:%i4L", TEMPERATURA, LUX);
+
+    lcd.setCursor(0, 1);
+    if (FUNCIONAMIENTO_TEMP == MODO_TEMP_STANDBY)
+        lcd.print(F("STANDBY"));
+    else if (FUNCIONAMIENTO_TEMP == MODO_TEMP_CALENTANDO)
+        lcd.print(F("CALENTANDO "));
+    else if (FUNCIONAMIENTO_TEMP == MODO_TEMP_ENFRIANDO)
+        lcd.print(F("ENFRIANDO  "));
+
+    lcd.setCursor(0, 2);
+    lcd.printf(" HUM:%i3%% ", HUMEDAD);
+
+    lcd.setCursor(0, 3);
+    if (FUNCIONAMIENTO_REGADO == MODO_REGADO_APAGADO)
+        lcd.print(F("STANDBY     VOLVER:X"));
+    else
+        lcd.print(F("REGANDO     VOLVER:X"));
+
+    lcd.setCursor(10, 1);
+    lcd.printf("LUCES:%i3%%", POTENCIA_LUCES);
+
+    lcd.setCursor(14, 2);
+    if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
+        lcd.print(F("  AUTO"));
+    else
+        lcd.print(F("MANUAL"));
 }
 
 void lcd_menu_update()
@@ -85,13 +124,152 @@ void lcd_menu_update()
 
     switch (lcd_index_1)
     {
+    case 0:
+        switch (lcd_index_2)
+        {
         case 0:
-            switch (lcd_index_2)
+            lcd_subrutina_printFlecha(1);
+            lcd.print(F("INFORMACION        "));
+
+            lcd.setCursor(0, 1);
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("MODO: "));
+            lcd_subrutina_printModo();
+
+            lcd.setCursor(0, 2);
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("PARAMETROS AUTO    "));
+
+            lcd.setCursor(0, 3);
+            lcd.print(F(" ...                "));
+            break;
+        case 1:
+            lcd_subrutina_screenInfo();
+            break;
+        }
+        break;
+    case 1:
+        switch (lcd_index_2)
+        {
+        case 0:
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("INFORMACION        "));
+
+            lcd.setCursor(0, 1);
+            lcd_subrutina_printFlecha(1);
+            lcd.print(F("MODO: "));
+            lcd_subrutina_printModo();
+
+            lcd.setCursor(0, 2);
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("PARAMETROS AUTO    "));
+
+            lcd.setCursor(0, 3);
+            lcd.print(F(" ...                "));
+            break;
+        }
+        break;
+    case 2:
+        switch (lcd_index_2)
+        {
+        case 0:
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("INFORMACION        "));
+
+            lcd.setCursor(0, 1);
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("MODO: "));
+            lcd_subrutina_printModo();
+
+            lcd.setCursor(0, 2);
+            lcd_subrutina_printFlecha(1);
+            lcd.print(F("PARAMETROS AUTO    "));
+
+            lcd.setCursor(0, 3);
+            lcd.print(F(" ...                "));
+            break;
+        case 1:
+            lcd_subrutina_printFlecha(1);
+            lcd.print(F("VOLVER ARRIBA      "));
+
+            lcd.setCursor(0, 1);
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("TEMPERATURA        "));
+
+            lcd.setCursor(0, 2);
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("HUMEDAD            "));
+
+            lcd.setCursor(0, 3);
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("ILUMINACION        "));
+            break;
+        case 2:
+            switch (lcd_index_3)
             {
-                case 0: //Menu principal: - Informacion General.
-                    
-                    break;
+            case 0:
+                lcd_subrutina_printFlecha(0);
+                lcd.print(F("VOLVER ARRIBA      "));
+
+                lcd.setCursor(0, 1);
+                lcd_subrutina_printFlecha(1);
+                lcd.print(F("TEMPERATURA        "));
+
+                lcd.setCursor(0, 2);
+                lcd_subrutina_printFlecha(0);
+                lcd.print(F("HUMEDAD            "));
+
+                lcd.setCursor(0, 3);
+                lcd_subrutina_printFlecha(0);
+                lcd.print(F("ILUMINACION        "));
+                break;
+            case 1:
+                lcd_subrutina_printFlecha(1);
+                lcd.print(F("VOLVER ARRIBA      "));
+
+                lcd.setCursor(0, 1);
+                lcd_subrutina_printFlecha(0);
+                lcd.print(F("MINIMO: "));
+
+                lcd.setCursor(0, 2);
+                lcd_subrutina_printFlecha(0);
+                lcd.print(F("MAXIMO: "));
+                break;
             }
             break;
+        }
+        break;
+    case 3:
+        switch (lcd_index_2)
+        {
+        case 0:
+            lcd.print(F(" ...                "));
+
+            lcd.setCursor(0, 1);
+            lcd_subrutina_printFlecha(1);
+            lcd.print(F("CONTROL MANUAL     "));
+
+            lcd.setCursor(0, 2);
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("EVENTOS            "));
+            break;
+        }
+        break;
+    case 4:
+        switch (lcd_index_2)
+        {
+        case 0:
+            lcd.print(F(" ...                "));
+
+            lcd.setCursor(0, 1);
+            lcd_subrutina_printFlecha(0);
+            lcd.print(F("CONTROL MANUAL     "));
+
+            lcd.setCursor(0, 2);
+            lcd_subrutina_printFlecha(1);
+            lcd.print(F("EVENTOS            "));
+            break;
+        }
+        break;
     }
 }

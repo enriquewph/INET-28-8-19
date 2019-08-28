@@ -15,4 +15,27 @@
 #define PIN_RELAY_RIEGO 5
 #define PIN_DIMMER_LUZ 6
 
+
+//Variables de funcionamiento:
+
+uint8_t FUNCIONAMIENTO_MODO = MODO_AUTOMATICO;
+#define MODO_MANUAL 0
+#define MODO_AUTOMATICO 1
+
+uint8_t FUNCIONAMIENTO_TEMP;
+#define MODO_TEMP_STANDBY 0
+#define MODO_TEMP_CALENTANDO 1
+#define MODO_TEMP_ENFRIANDO 2
+
+uint8_t FUNCIONAMIENTO_REGADO;
+#define MODO_REGADO_APAGADO 0
+#define MODO_REGADO_ENCENDIDO 1
+
+//Entradas / salidas:
+
+float TEMPERATURA;
+uint8_t HUMEDAD;
+uint16_t LUX;
+uint8_t POTENCIA_LUCES;
+
 #endif
