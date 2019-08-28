@@ -14,5 +14,5 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-    
+    lcd_menu_update();
 }
