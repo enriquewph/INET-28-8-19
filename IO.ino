@@ -2,13 +2,15 @@
 
 float TEMP_leer()
 {
-    float temp = (analogRead(PIN_LM35) * 5 * 100 / 1024);
-
+    Serial.println(analogRead(PIN_LM35));
+    float temp =  (analogRead(PIN_LM35)*5*100/1023) ;
+    Serial.println(temp);
     return (temp);
+   
 }
 float HUM_leer()
 {
-    float humedad = analogRead(PIN_HUMEDAD);
+    float humedad = (analogRead(PIN_HUMEDAD) / 10.24);
     return (humedad);
 }
 uint16_t LDR_leer()
@@ -25,8 +27,25 @@ uint16_t LDR_leer()
 
 void IO_rutina()
 {
+
     float a = TEMP_leer();
-    Serial.println("Temperatura: " + String(a));
+
+    float B[5];
+    for (byte i=0; i < 5; i++)
+    {
+        B[i] = a;
+        
+    }
+    float y = 0;
+    float suma = 0;
+    for (byte i = 0; i < 5; i++)
+    {
+        suma += B[i]; 
+    }
+    Serial.println(suma);
+    y = suma / 5;
+
+    Serial.println("Temperatura: " + String(y));
 
     float b = HUM_leer();
     Serial.println("humedad: " + String(b));
