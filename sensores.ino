@@ -24,13 +24,14 @@ uint16_t LDR_leer()
 
 void IO_rutina()
 {
-    float b = HUM_leer();
-    float a = TEMP_leer();
-    uint16_t c = LDR_leer();
+    HUMEDAD = HUM_leer();
+    TEMPERATURA = TEMP_leer();
+    LUX = LDR_leer();
+    control_HUMEDAD();
 
-    Serial.println("Temperatura: " + String(a));
-    Serial.println("humedad: " + String(b));
-    Serial.println("lux: " + String(c));
+    Serial.println("Temperatura: " + String(TEMPERATURA));
+    Serial.println("humedad actual: " + String(HUMEDAD) + "  humedad minima: " + String(HUMEDAD_BAJA_TRIGGER) + "  humedad maxima: " + String(HUMEDAD_BAJA_RELEASE));
+    Serial.println("lux: " + String(LUX));
 }
 
 uint16_t ADC_LEER_PROMEDIO(uint8_t pin, uint8_t mediciones)
@@ -43,5 +44,6 @@ uint16_t ADC_LEER_PROMEDIO(uint8_t pin, uint8_t mediciones)
     }
     return (adcReads / mediciones);
 }
+
 
 
