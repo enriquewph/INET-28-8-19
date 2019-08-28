@@ -89,7 +89,7 @@ void lcd_menu_update()
             switch (lcd_index_2)
             {
                 case 0: //Menu principal: - Informacion General.
-
+                    
                     break;
             }
             break;

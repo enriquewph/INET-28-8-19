@@ -4,6 +4,8 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
+#define TIMER_ENTRADAS_TIEMPO 1000
+
 #define PIN_LM35 A0
 #define PIN_HUMEDAD A1
 #define PIN_LDR A2
