@@ -34,6 +34,12 @@ uint8_t FUNCIONAMIENTO_TEMP;
 #define MODO_REGADO_ENCENDIDO 1
 uint8_t FUNCIONAMIENTO_REGADO;
 
+
+//lcd_routines:
+uint8_t lcd_index_1 = 0;
+uint8_t lcd_index_2 = 1;
+uint8_t lcd_index_3 = 0;
+
 //Entradas / salidas:
 
 float TEMPERATURA;
