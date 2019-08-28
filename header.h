@@ -1,8 +1,8 @@
 #ifndef header_h
 #define header_h
 
-//#include <Wire.h>
-//#include <LiquidCrystal_I2C.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 char lcdBuffer[32];
