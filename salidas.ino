@@ -57,3 +57,23 @@ uint8_t pwmmap(uint8_t x, uint8_t in_min, uint8_t in_max, uint8_t out_min, uint8
 {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
+
+void EV_CREACION()
+{
+    if (FUNCIONAMIENTO_TEMP == MODO_TEMP_ENFRIANDO)
+    {
+        lcd_createEvent(EV_TEMP_ALTA, EV_INFORMACION);
+    }
+    if (FUNCIONAMIENTO_TEMP == MODO_TEMP_CALENTANDO)
+    {
+        lcd_createEvent(EV_TEMP_BAJA, EV_INFORMACION);
+    }
+    if (FUNCIONAMIENTO_REGADO == MODO_REGADO_ENCENDIDO)
+    {
+        lcd_createEvent(EV_HUMEDAD_BAJA, EV_INFORMACION);
+    }
+    if (FUNCIONAMIENTO_REGADO == MODO_REGADO_APAGADO)
+    {
+        lcd_createEvent(EV_HUMEDAD_ALTA, EV_INFORMACION);
+    }
+}
