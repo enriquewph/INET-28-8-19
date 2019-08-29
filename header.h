@@ -82,4 +82,28 @@ bool TEMPERATURA_ALTA_ESTADO;
 #define HUMEDAD_RELEASE 70
 bool HUMEDAD_ESTADO;
 
+
+
+//LISTA DE CODIGOS DE EVENTOS
+#define EV_NINGUNO 0 //Evento inexistente
+#define EV_PRUEBA  1 //evento de prueba
+
+//LISTA DE TIPOS DE EVENTOS
+#define EV_INFORMACION 0
+#define EV_ADVERTENCIA 1
+#define EV_ERROR 2
+
+//CANTIDAD DE EVENTOS A GUARDAR
+#define EVENTOS_MEMORIA 12
+
+typedef struct eventos{
+    uint8_t codigo_evento; //EV_TYPE
+    uint8_t tipo_evento; //ERROR, ADVERTENCIA, INFORMACION
+    uint32_t tiempo_evento; //millis()
+}evento_t;
+
+evento_t evento_ultimo;
+evento_t evento_lista[EVENTOS_MEMORIA];
+uint8_t evento_ultimoIndice = 0;
+
 #endif
