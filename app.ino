@@ -6,16 +6,30 @@ INTEGRANTES:
 - Philippeaux, Enrique
 */
 
-uint32_t timer_entradas;
+/*
+TODO:
+- implementar eeprom --LISTO
+
+- implementar eventos
+- implementar control para el luxometro y las luces.
+- implementar bloqueo al cambio de variables automaticamente cuando esta en modo manual.
+- implementar salidas tanto en manual como en automatico, que el automatico actualize las del manual....
+
+- implementar un amplificador al lm35 para obtener mayor resolucion de ganancia X10
+- https://electronics.stackexchange.com/questions/194165/increasing-the-resolution-of-a-sensor-by-using-an-amplifier
+- organizar, distribuir y comentar el codigo.
+*/
 
 void setup()
 {
     // put your setup code here, to run once:
     Serial.begin(9600);
-    timer_entradas = millis();
+
+    cargar_variables();
     lcd_subrutina_init();
 
-    TEMPERATURA_UPDATE_RELEASE(); //incluir que esta funcion se ejecute cuando se cargen variables de eeprom o se editen x menu.
+    timer_entradas = millis();
+    timeout_screensaver = millis();
 }
 
 void loop()
@@ -29,3 +43,4 @@ void loop()
         timer_entradas = millis();
     }
 }
+

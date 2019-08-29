@@ -35,6 +35,14 @@ void lcd_menu_update()
 {
     lcd.setCursor(0, 0);
 
+    if (millis() >= timeout_screensaver + TIMEOUT_TECLADO) //timeout
+    {
+        lcd_index_1 = 0;
+        lcd_index_2 = 1;
+        timeout_screensaver = millis();
+    }
+
+
     if (lcd_index_2 == 0)
         lcd_subrutina_menuPrincipal();
     if (lcd_index_1 == 0 && lcd_index_2 == 1)
@@ -92,10 +100,10 @@ void lcd_subrutina_menuParametros()
             TEMPERATURA_ALTA_TRIGGER = lcd_subrutina_editarVar2digitos(TEMPERATURA_ALTA_TRIGGER, TEMPERATURA_BAJA_TRIGGER, 100, 14, 1);
             break;
         case 3:
-            HUMEDAD_TRIGGER = lcd_subrutina_editarVar3digitos(HUMEDAD_TRIGGER, 0, HUMEDAD_RELEASE, 8, 2);
+            HUMEDAD_TRIGGER = lcd_subrutina_editarVar3digitos(HUMEDAD_TRIGGER, 0, HUMEDAD_RELEASE, 7, 2);
             break;
         case 4:
-            HUMEDAD_RELEASE = lcd_subrutina_editarVar3digitos(HUMEDAD_RELEASE, HUMEDAD_TRIGGER, 100, 16, 2); //el max no puede ser menor que el minimo...
+            HUMEDAD_RELEASE = lcd_subrutina_editarVar3digitos(HUMEDAD_RELEASE, HUMEDAD_TRIGGER, 100, 15, 2); //el max no puede ser menor que el minimo...
             break;
         case 5:
             LUX_TARGET = lcd_subrutina_editarVar5digitos(LUX_TARGET, 0, 50000, 10, 3);
@@ -240,6 +248,7 @@ float lcd_subrutina_editarVar2digitos(float variable, float limite_inferior, flo
     }
 
     lcd.noBlink();
+    guardar_variables();
 
     String string_editado = digitos;
     float numero_editado = (float) string_editado.toInt();
@@ -310,6 +319,7 @@ uint8_t lcd_subrutina_editarVar3digitos(uint8_t variable, uint8_t limite_inferio
     }
 
     lcd.noBlink();
+    guardar_variables();
 
     String string_editado = digitos;
     uint8_t numero_editado = string_editado.toInt();
@@ -382,6 +392,7 @@ uint16_t lcd_subrutina_editarVar5digitos(uint16_t variable, uint16_t limite_infe
     }
 
     lcd.noBlink();
+    guardar_variables();
 
     String string_editado = digitos;
     uint16_t numero_editado = string_editado.toInt();

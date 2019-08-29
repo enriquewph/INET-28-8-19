@@ -1,11 +1,11 @@
 #include "header.h"
 
 
-
 void teclado_update()
 {
     TECLA_PRESIONADA = keypad.getKey();
-
+    if (TECLA_PRESIONADA != NO_KEY)
+        timeout_screensaver = millis();
     switch (lcd_index_1)
     {
     case 0:
@@ -34,6 +34,7 @@ void teclado_update()
                 FUNCIONAMIENTO_MODO = MODO_MANUAL;
             else
                 FUNCIONAMIENTO_MODO = MODO_AUTOMATICO;
+            guardar_variables();
         }
         break;
     case 2:
@@ -59,6 +60,7 @@ void teclado_update()
                     SALIDA_EXTRACTOR = 1;
                 else
                     SALIDA_EXTRACTOR = 0;
+                guardar_variables();
             }
             break;
         case 2:
@@ -75,6 +77,7 @@ void teclado_update()
                     SALIDA_CALEFACTOR = 1;
                 else
                     SALIDA_CALEFACTOR = 0;
+                guardar_variables();
             }
             break;
         case 3:
@@ -91,6 +94,7 @@ void teclado_update()
                     SALIDA_REGADOR = 1;
                 else
                     SALIDA_REGADOR = 0;
+                guardar_variables();
             }
             break;
         case 4:
@@ -150,7 +154,7 @@ void teclado_update()
                     lcd_editando = 0;
                 else
                     lcd_index_2 = 0;
-            
+
             if (TECLA_PRESIONADA == TECLA_ENTER)
                 lcd_editando = 1;
             break;
@@ -165,7 +169,7 @@ void teclado_update()
                     lcd_editando = 0;
                 else
                     lcd_index_2 = 0;
-            
+
             if (TECLA_PRESIONADA == TECLA_ENTER)
                 lcd_editando = 1;
             break;
@@ -180,7 +184,7 @@ void teclado_update()
                     lcd_editando = 0;
                 else
                     lcd_index_2 = 0;
-            
+
             if (TECLA_PRESIONADA == TECLA_ENTER)
                 lcd_editando = 1;
             break;
@@ -195,7 +199,7 @@ void teclado_update()
                     lcd_editando = 0;
                 else
                     lcd_index_2 = 0;
-            
+
             if (TECLA_PRESIONADA == TECLA_ENTER)
                 lcd_editando = 1;
             break;
@@ -208,11 +212,11 @@ void teclado_update()
                     lcd_editando = 0;
                 else
                     lcd_index_2 = 0;
-            
+
             if (TECLA_PRESIONADA == TECLA_ENTER)
                 lcd_editando = 1;
             break;
         }
-    break;
+        break;
     }
 }

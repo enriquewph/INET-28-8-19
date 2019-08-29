@@ -27,12 +27,13 @@ void IO_rutina()
     HUMEDAD = HUM_leer();
     TEMPERATURA = TEMP_leer();
     LUX = LDR_leer();
+
     control_HUMEDAD();
     control_TEMP();
 
-    Serial.println("Temperatura: " + String(TEMPERATURA));
-    Serial.println("humedad actual: " + String(HUMEDAD) + "  humedad minima: " + String(HUMEDAD_TRIGGER) + "  humedad maxima: " + String(HUMEDAD_RELEASE));
-    Serial.println("lux: " + String(LUX));
+    //Serial.println("Temperatura: " + String(TEMPERATURA));
+    //Serial.println("humedad actual: " + String(HUMEDAD) + "  humedad minima: " + String(HUMEDAD_TRIGGER) + "  humedad maxima: " + String(HUMEDAD_RELEASE));
+    //Serial.println("lux: " + String(LUX));
 }
 
 uint16_t ADC_LEER_PROMEDIO(uint8_t pin, uint8_t mediciones)
