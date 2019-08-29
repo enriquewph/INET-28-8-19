@@ -6,9 +6,6 @@ float TEMP_leer() //Funcion que devuelve la temperatura en grados centigrados, c
 
     float mv = (adc_lecture / 1024.0) * 5000; //Calcular los milivolts en la entrada analogica
     float temp = mv / 10 + LM35_CORRECCION;
-    Serial.println(adc_lecture);
-    Serial.println(mv);
-    Serial.println(temp);
     return (temp);                         
 }
 

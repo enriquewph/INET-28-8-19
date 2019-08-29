@@ -146,7 +146,9 @@ void lcd_subrutina_screenInfo()
     lcd.print(lcdBuffer);
 
     lcd.setCursor(0, 2);
-    if (FUNCIONAMIENTO_TEMP == MODO_TEMP_STANDBY)
+    if (TEMPERATURA > 100)
+        lcd.print(F("TEMP: ERROR    "));
+    else if (FUNCIONAMIENTO_TEMP == MODO_TEMP_STANDBY)
         lcd.print(F("TEMP: OK      "));
     else if (FUNCIONAMIENTO_TEMP == MODO_TEMP_CALENTANDO)
         lcd.print(F("CALENTANDO    "));

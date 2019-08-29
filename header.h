@@ -110,13 +110,28 @@ uint16_t LUX_ALTO;
 //EVENTOS
 
 //LISTA DE CODIGOS DE EVENTOS
-#define EV_NINGUNO 0 //Evento inexistente
+uint8_t ultimo_evento;
+#define EV_NINGUNO 0
+
 #define EV_TEMP_ALTA 1
 #define EV_TEMP_BAJA 2
-#define EV_HUMEDAD_BAJA 3
-#define EV_HUMEDAD_ALTA 4
-#define EV_LUZ_ALTA 5
-#define EV_LUZ_BAJA 6
+#define EV_TEMP_ESTABILIZADA 3
+
+#define EV_HUMEDAD_BAJA 4
+#define EV_HUMEDAD_ALTA 5
+
+#define EV_ERROR_SENSOR_HUMEDAD 6 //para 0% y > 100%
+#define EV_ERROR_SENSOR_TEMPERATURA 7 //para mas de 100ºC
+#define EV_ERROR_SENSOR_LDR 8 //para 0lux
+
+#define EV_ERROR_TIEMPO_PARPADEO 8000
+
+bool EV_ERROR_PRESENTE;
+uint32_t EV_ERROR_ULTIMO_PARPADEO;
+bool EV_ERROR_SENSOR_HUMEDAD_ACTIVADO = 0;
+bool EV_ERROR_SENSOR_TEMPERATURA_ACTIVADO = 0;
+bool EV_ERROR_SENSOR_LDR_ACTIVADO = 0;
+
 
 //LISTA DE TIPOS DE EVENTOS
 #define EV_INFORMACION 0
@@ -125,6 +140,8 @@ uint16_t LUX_ALTO;
 
 //CANTIDAD DE EVENTOS A GUARDAR
 #define EVENTOS_MEMORIA 12
+
+#define TIEMPO_AVISO_LCD 2000 //tiempo en milisegundos a mostrar el aviso en el lcd.
 
 typedef struct eventos
 {
@@ -136,6 +153,9 @@ typedef struct eventos
 evento_t evento_ultimo;
 evento_t evento_lista[EVENTOS_MEMORIA];
 uint8_t evento_ultimoIndice = 0;
+
+bool lcd_mostrarevento = 0;
+uint8_t lcd_mostrarevento_id;
 
 //EEPROM
 

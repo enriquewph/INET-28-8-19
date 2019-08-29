@@ -42,7 +42,6 @@ void lcd_menu_update()
         timeout_screensaver = millis();
     }
 
-
     if (lcd_index_2 == 0)
         lcd_subrutina_menuPrincipal();
     if (lcd_index_1 == 0 && lcd_index_2 == 1)
@@ -91,7 +90,7 @@ void lcd_subrutina_menuParametros()
     lcd_subrutina_printFlecha(lcd_index_2 == 6);
     lcd_subrutina_printLux(LUX_ALTO);
     lcd.print(F(" "));
-    
+
     if (lcd_editando)
     {
         switch (lcd_index_2)
@@ -126,16 +125,50 @@ void lcd_subrutina_menuParametros()
 
 void lcd_subrutina_menuEventos()
 {
+    if (!lcd_mostrarevento)
+    {
+        lcd_subrutina_printFlecha(lcd_index_2 == 1);
+        lcd.print(F("LISTA DE EVENTOS   "));
 
-    lcd_subrutina_printFlecha(lcd_index_2 == 1);
-    lcd.print(F("LISTA DE EVENTOS   "));
+        lcd.setCursor(0, 1);
+        lcd_subrutina_printFlecha(lcd_index_2 == 2);
+        lcd.print(F("ULTIMO EVENTO      "));
 
-    lcd.setCursor(0, 1);
-    lcd_subrutina_printFlecha(lcd_index_2 == 2);
-    lcd.print(F("ULTIMO EVENTO      "));
+        lcd_clearLine(2);
+        lcd_clearLine(3);
+    }
+    else
+    {
+        uint8_t evento_a_ver;
 
-    lcd_clearLine(2);
-    lcd_clearLine(3);
+        if (lcd_index_2 == 1) //lista de eventos seleccionada
+        {
+            evento_a_ver = evento_lista[lcd_mostrarevento_id].codigo_evento;
+        }
+        if (lcd_index_2 == 2)
+        {
+            evento_a_ver = ultimo_evento;
+        }
+
+        switch (evento_a_ver)
+        {
+        case EV_TEMP_ALTA:
+            TEX_EV_TEMP_ALTA();
+            break;
+        case EV_TEMP_BAJA:
+            TEX_EV_TEMP_BAJA();
+            break;
+        case EV_TEMP_ESTABILIZADA:
+            TEX_EV_TEMP_ESTABILIZADA();
+            break;
+        case EV_HUMEDAD_BAJA:
+            TEX_EV_HUMEDAD_BAJA();
+            break;
+        case EV_HUMEDAD_ALTA:
+            TEX_EV_HUMEDAD_ALTA();
+            break;
+        }
+    }
 }
 
 void lcd_subrutina_menuControlManual()
@@ -262,14 +295,13 @@ float lcd_subrutina_editarVar2digitos(float variable, float limite_inferior, flo
     lcd.noBlink();
 
     String string_editado = digitos;
-    float numero_editado = (float) string_editado.toInt();
+    float numero_editado = (float)string_editado.toInt();
 
     if (numero_editado <= limite_superior && numero_editado >= limite_inferior)
         return (numero_editado);
     else
         return variable;
 }
-
 
 uint8_t lcd_subrutina_editarVar3digitos(uint8_t variable, uint8_t limite_inferior, uint8_t limite_superior, uint8_t cur_x, uint8_t cur_y)
 {
@@ -339,9 +371,6 @@ uint8_t lcd_subrutina_editarVar3digitos(uint8_t variable, uint8_t limite_inferio
     else
         return variable;
 }
-
-
-
 
 uint16_t lcd_subrutina_editarVar4digitos(uint16_t variable, uint16_t limite_inferior, uint16_t limite_superior, uint8_t cur_x, uint8_t cur_y)
 {
