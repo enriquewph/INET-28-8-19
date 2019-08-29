@@ -7,7 +7,7 @@ float TEMP_leer()
 }
 float HUM_leer()
 {
-    float humedad = (ADC_LEER_PROMEDIO(PIN_HUMEDAD, 10) / 10.24);
+    float humedad = (ADC_LEER_PROMEDIO(PIN_HUMEDAD, 10) / 10.23);
     return (humedad);
 }
 uint16_t LDR_leer()
@@ -24,14 +24,17 @@ uint16_t LDR_leer()
 
 void IO_rutina()
 {
-    float b = HUM_leer();
-    float a = TEMP_leer();
-    uint16_t c = LDR_leer();
+    HUMEDAD = HUM_leer();
+    TEMPERATURA = TEMP_leer();
+    LUX = LDR_leer();
+    control_HUMEDAD();
+    control_TEMP();
 
-    Serial.println("Temperatura: " + String(a));
-    Serial.println("humedad: " + String(b));
-    Serial.println("lux: " + String(c));
+    Serial.println("Temperatura: " + String(TEMPERATURA));
+    Serial.println("humedad actual: " + String(HUMEDAD) + "  humedad minima: " + String(HUMEDAD_TRIGGER) + "  humedad maxima: " + String(HUMEDAD_RELEASE));
+    Serial.println("lux: " + String(LUX));
 }
+
 uint16_t ADC_LEER_PROMEDIO(uint8_t pin, uint8_t mediciones)
 {
     uint32_t adcReads = 0;
@@ -42,3 +45,6 @@ uint16_t ADC_LEER_PROMEDIO(uint8_t pin, uint8_t mediciones)
     }
     return (adcReads / mediciones);
 }
+
+
+
