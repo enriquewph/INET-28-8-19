@@ -172,3 +172,14 @@ void lcd_clearLine(uint8_t linea)
     lcd.setCursor(0, linea);
     lcd.print(F("                    "));
 }
+void lcd_clear()
+{
+    lcd.setCursor(0, 1);
+    lcd.print(F("                    "));
+    lcd.setCursor(0, 2);
+    lcd.print(F("                    "));
+    lcd.setCursor(0, 3);
+    lcd.print(F("                    "));
+    lcd.setCursor(0, 4);
+    lcd.print(F("                    "));
+}
