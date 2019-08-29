@@ -118,7 +118,7 @@ void lcd_subrutina_screenInfo()
     sprintf(lcdBuffer, " |%3u%%", HUMEDAD);
     lcd.print(lcdBuffer);
 
-    sprintf(lcdBuffer, "| %4uLx", LUX);
+    sprintf(lcdBuffer, "|%5uLx", LUX);
     lcd.print(lcdBuffer);
 
     lcd.setCursor(0, 1);
@@ -130,11 +130,11 @@ void lcd_subrutina_screenInfo()
 
     lcd.setCursor(0, 2);
     if (FUNCIONAMIENTO_TEMP == MODO_TEMP_STANDBY)
-        lcd.print(F("TEMP: OK   "));
+        lcd.print(F("TEMP: OK      "));
     else if (FUNCIONAMIENTO_TEMP == MODO_TEMP_CALENTANDO)
-        lcd.print(F("CALENTANDO "));
+        lcd.print(F("CALENTANDO    "));
     else if (FUNCIONAMIENTO_TEMP == MODO_TEMP_ENFRIANDO)
-        lcd.print(F("ENFRIANDO  "));
+        lcd.print(F("ENFRIANDO     "));
 
     lcd.setCursor(0, 3);
     if (FUNCIONAMIENTO_REGADO == MODO_REGADO_APAGADO)
@@ -148,4 +148,10 @@ void lcd_subrutina_screenInfo()
         lcd.print(F("  AUTO"));
     else
         lcd.print(F("MANUAL"));
+}
+
+void lcd_clearLine(uint8_t linea)
+{
+    lcd.setCursor(0, linea);
+    lcd.print(F("                    "));
 }

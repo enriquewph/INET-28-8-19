@@ -1,43 +1,114 @@
 #include "header.h"
 
-const byte FILAS = 4;    //CUATRO FILAS
-const byte COLUMNAS = 4; //CUATRO COLUMNAS
+#define FILAS 4
+#define COLUMNAS 4
 char keys[FILAS][COLUMNAS] = {
-    {'1', '2', '3', 'A'},
-    {'4', '5', '6', 'B'},
-    {'7', '8', '9', 'C'},
-    {'#', '0', '*', 'D'}};
-byte rowPins[FILAS] = {26, 27, 28, 29};
-byte colPins[COLUMNAS] = {22, 23, 24, 25};
+    {'1', '2', '3', TECLA_ARRIBA},
+    {'4', '5', '6', TECLA_ENTER},
+    {'7', '8', '9', TECLA_VOLVER},
+    {'#', '0', '*', TECLA_ABAJO}};
+byte rowPins[FILAS] = {PIN_TECLADO_FILA_1, PIN_TECLADO_FILA_2, PIN_TECLADO_FILA_3, PIN_TECLADO_FILA_4};
+byte colPins[COLUMNAS] = {PIN_TECLADO_COLUMNA_1, PIN_TECLADO_COLUMNA_2, PIN_TECLADO_COLUMNA_3, PIN_TECLADO_COLUMNA_4};
 
 Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, FILAS, COLUMNAS);
 
 void teclado_update()
 {
-    char key = keypad.getKey();
+    TECLA_PRESIONADA = keypad.getKey();
 
-    if (key != NO_KEY)
+    switch (lcd_index_1)
     {
-        Serial.println(key);
-    }
-
-    switch (key)
-    {
-    case 'A':
-        if (lcd_index_1 > 0)
-            lcd_index_1--;
+    case 0:
+        switch (lcd_index_2)
+        {
+        case 0:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_1++;
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_index_2++;
+            break;
+        case 1:
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                lcd_index_2 = 0;
+            break;
+        }
         break;
-    case 'D':
-        if (lcd_index_1 < 4)
-            lcd_index_1++;
+    case 1: //SELECTOR DE MODO
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_1++;
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_1--;
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+            {
+                if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
+                    FUNCIONAMIENTO_MODO = MODO_MANUAL;
+                else
+                    FUNCIONAMIENTO_MODO = MODO_AUTOMATICO;
+            }
         break;
-    case 'B':
-        if (lcd_index_2 > 0)
-            lcd_index_2--;
+    case 2:
+        switch (lcd_index_2)
+        {
+        case 0:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_1++;
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_1--;
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_index_2 = 1;
+            break;
+        case 1:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_2++;
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                lcd_index_2 = 0;
+            break;
+        case 2:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_2++;
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_2--;
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                lcd_index_2 = 0;
+            break;
+        case 3:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_2++;
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_2--;
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                lcd_index_2 = 0;
+            break;
+        case 4:
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_2--;
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                lcd_index_2 = 0;
+            break;
+        }
         break;
-    case 'C':
-        if (lcd_index_2 < 4)
-            lcd_index_2++;
+    case 3:
+        switch (lcd_index_2)
+        {
+        case 0:
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_1--;
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_index_2 = 1;
+            break;
+        case 1:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_2++;
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                lcd_index_2 = 0;
+            break;
+        case 2:
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_2--;
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                lcd_index_2 = 0;
+            break;
+        }
         break;
     }
 }
