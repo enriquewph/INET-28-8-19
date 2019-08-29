@@ -14,6 +14,8 @@ void setup()
     Serial.begin(9600);
     timer_entradas = millis();
     lcd_subrutina_init();
+
+    TEMPERATURA_UPDATE_RELEASE(); //incluir que esta funcion se ejecute cuando se cargen variables de eeprom o se editen x menu.
 }
 
 void loop()

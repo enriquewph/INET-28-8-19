@@ -1,16 +1,6 @@
 #include "header.h"
 
-#define FILAS 4
-#define COLUMNAS 4
-char keys[FILAS][COLUMNAS] = {
-    {'1', '2', '3', TECLA_ARRIBA},
-    {'4', '5', '6', TECLA_ENTER},
-    {'7', '8', '9', TECLA_VOLVER},
-    {'#', '0', '*', TECLA_ABAJO}};
-byte rowPins[FILAS] = {PIN_TECLADO_FILA_1, PIN_TECLADO_FILA_2, PIN_TECLADO_FILA_3, PIN_TECLADO_FILA_4};
-byte colPins[COLUMNAS] = {PIN_TECLADO_COLUMNA_1, PIN_TECLADO_COLUMNA_2, PIN_TECLADO_COLUMNA_3, PIN_TECLADO_COLUMNA_4};
 
-Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, FILAS, COLUMNAS);
 
 void teclado_update()
 {
@@ -34,24 +24,24 @@ void teclado_update()
         }
         break;
     case 1: //SELECTOR DE MODO
-            if (TECLA_PRESIONADA == TECLA_ABAJO)
-                lcd_index_1++;
-            if (TECLA_PRESIONADA == TECLA_ARRIBA)
-                lcd_index_1--;
-            if (TECLA_PRESIONADA == TECLA_ENTER)
-            {
-                if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
-                    FUNCIONAMIENTO_MODO = MODO_MANUAL;
-                else
-                    FUNCIONAMIENTO_MODO = MODO_AUTOMATICO;
-            }
+        if (TECLA_PRESIONADA == TECLA_ABAJO)
+            lcd_index_1++;
+        if (TECLA_PRESIONADA == TECLA_ARRIBA)
+            lcd_index_1--;
+        if (TECLA_PRESIONADA == TECLA_ENTER)
+        {
+            if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
+                FUNCIONAMIENTO_MODO = MODO_MANUAL;
+            else
+                FUNCIONAMIENTO_MODO = MODO_AUTOMATICO;
+        }
         break;
     case 2:
         switch (lcd_index_2)
         {
         case 0:
             if (TECLA_PRESIONADA == TECLA_ABAJO)
-                lcd_index_1++;
+                lcd_index_1 = 5;
             if (TECLA_PRESIONADA == TECLA_ARRIBA)
                 lcd_index_1--;
             if (TECLA_PRESIONADA == TECLA_ENTER)
@@ -62,6 +52,14 @@ void teclado_update()
                 lcd_index_2++;
             if (TECLA_PRESIONADA == TECLA_VOLVER)
                 lcd_index_2 = 0;
+
+            if (TECLA_PRESIONADA == TECLA_ENTER && FUNCIONAMIENTO_MODO == MODO_MANUAL)
+            {
+                if (SALIDA_EXTRACTOR == 0)
+                    SALIDA_EXTRACTOR = 1;
+                else
+                    SALIDA_EXTRACTOR = 0;
+            }
             break;
         case 2:
             if (TECLA_PRESIONADA == TECLA_ABAJO)
@@ -70,6 +68,14 @@ void teclado_update()
                 lcd_index_2--;
             if (TECLA_PRESIONADA == TECLA_VOLVER)
                 lcd_index_2 = 0;
+
+            if (TECLA_PRESIONADA == TECLA_ENTER && FUNCIONAMIENTO_MODO == MODO_MANUAL)
+            {
+                if (SALIDA_CALEFACTOR == 0)
+                    SALIDA_CALEFACTOR = 1;
+                else
+                    SALIDA_CALEFACTOR = 0;
+            }
             break;
         case 3:
             if (TECLA_PRESIONADA == TECLA_ABAJO)
@@ -78,21 +84,37 @@ void teclado_update()
                 lcd_index_2--;
             if (TECLA_PRESIONADA == TECLA_VOLVER)
                 lcd_index_2 = 0;
+
+            if (TECLA_PRESIONADA == TECLA_ENTER && FUNCIONAMIENTO_MODO == MODO_MANUAL)
+            {
+                if (SALIDA_REGADOR == 0)
+                    SALIDA_REGADOR = 1;
+                else
+                    SALIDA_REGADOR = 0;
+            }
             break;
         case 4:
             if (TECLA_PRESIONADA == TECLA_ARRIBA)
                 lcd_index_2--;
             if (TECLA_PRESIONADA == TECLA_VOLVER)
-                lcd_index_2 = 0;
+                if (lcd_editando)
+                    lcd_editando = 0;
+                else
+                    lcd_index_2 = 0;
+
+            if (TECLA_PRESIONADA == TECLA_ENTER && FUNCIONAMIENTO_MODO == MODO_MANUAL)
+                lcd_editando = 1;
             break;
         }
         break;
-    case 3:
+    case 5:
         switch (lcd_index_2)
         {
         case 0:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_1++;
             if (TECLA_PRESIONADA == TECLA_ARRIBA)
-                lcd_index_1--;
+                lcd_index_1 = 2;
             if (TECLA_PRESIONADA == TECLA_ENTER)
                 lcd_index_2 = 1;
             break;
@@ -110,5 +132,87 @@ void teclado_update()
             break;
         }
         break;
+    case 6:
+        switch (lcd_index_2)
+        {
+        case 0:
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_1--;
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_index_2 = 1;
+            break;
+        case 1:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_2++;
+
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                if (lcd_editando)
+                    lcd_editando = 0;
+                else
+                    lcd_index_2 = 0;
+            
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_editando = 1;
+            break;
+        case 2:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_2++;
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_2--;
+
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                if (lcd_editando)
+                    lcd_editando = 0;
+                else
+                    lcd_index_2 = 0;
+            
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_editando = 1;
+            break;
+        case 3:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_2++;
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_2--;
+
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                if (lcd_editando)
+                    lcd_editando = 0;
+                else
+                    lcd_index_2 = 0;
+            
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_editando = 1;
+            break;
+        case 4:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_2++;
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_2--;
+
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                if (lcd_editando)
+                    lcd_editando = 0;
+                else
+                    lcd_index_2 = 0;
+            
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_editando = 1;
+            break;
+        case 5:
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_2--;
+
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                if (lcd_editando)
+                    lcd_editando = 0;
+                else
+                    lcd_index_2 = 0;
+            
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_editando = 1;
+            break;
+        }
+    break;
     }
 }

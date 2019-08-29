@@ -33,7 +33,7 @@ char lcdBuffer[32];
 
 #define MODO_MANUAL 0
 #define MODO_AUTOMATICO 1
-uint8_t FUNCIONAMIENTO_MODO = MODO_AUTOMATICO;
+uint8_t FUNCIONAMIENTO_MODO = MODO_MANUAL;
 
 #define MODO_TEMP_STANDBY 0
 #define MODO_TEMP_CALENTANDO 1
@@ -44,12 +44,11 @@ uint8_t FUNCIONAMIENTO_TEMP; //el control manual debe hacer un override a esto.
 #define MODO_REGADO_ENCENDIDO 1
 uint8_t FUNCIONAMIENTO_REGADO;
 
-
-
 //lcd_routines:
-uint8_t lcd_index_1 = 2;
-uint8_t lcd_index_2 = 4;
-uint8_t lcd_index_3 = 0;
+uint8_t lcd_index_1 = 6;
+uint8_t lcd_index_2 = 1;
+
+bool lcd_editando = 0;
 
 char TECLA_PRESIONADA = NO_KEY;
 #define TECLA_ARRIBA 'A'
@@ -73,14 +72,20 @@ uint8_t SALIDA_CALEFACTOR;
 uint8_t SALIDA_REGADOR;
 uint8_t POTENCIA_LUCES;
 
-#define TEMPERATURA_TRIGGER 24.00
-#define TEMPERATURA_RELEASE 28.00
-bool TEMPERATURA_BAJA_ESTADO;
-bool TEMPERATURA_ALTA_ESTADO;
 
-#define HUMEDAD_TRIGGER 50
-#define HUMEDAD_RELEASE 70
+bool TEMPERATURA_BAJA_ESTADO;
+float TEMPERATURA_BAJA_TRIGGER = 24.00;
+
+bool TEMPERATURA_ALTA_ESTADO;
+float TEMPERATURA_ALTA_TRIGGER = 28.00;
+
+float TEMPERATURA_RELEASE; //calculado con funcion: TEMPERATURA_UPDATE_RELEASE();
+
 bool HUMEDAD_ESTADO;
+uint8_t HUMEDAD_TRIGGER = 50;
+uint8_t HUMEDAD_RELEASE = 70;
+
+uint16_t LUX_TARGET = 20000;
 
 
 
@@ -105,5 +110,21 @@ typedef struct eventos{
 evento_t evento_ultimo;
 evento_t evento_lista[EVENTOS_MEMORIA];
 uint8_t evento_ultimoIndice = 0;
+
+
+
+//teclado.ino
+#define FILAS 4
+#define COLUMNAS 4
+char keys[FILAS][COLUMNAS] = {
+    {'1', '2', '3', TECLA_ARRIBA},
+    {'4', '5', '6', TECLA_ENTER},
+    {'7', '8', '9', TECLA_VOLVER},
+    {'#', '0', '*', TECLA_ABAJO}};
+byte rowPins[FILAS] = {PIN_TECLADO_FILA_1, PIN_TECLADO_FILA_2, PIN_TECLADO_FILA_3, PIN_TECLADO_FILA_4};
+byte colPins[COLUMNAS] = {PIN_TECLADO_COLUMNA_1, PIN_TECLADO_COLUMNA_2, PIN_TECLADO_COLUMNA_3, PIN_TECLADO_COLUMNA_4};
+
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, FILAS, COLUMNAS);
+
 
 #endif

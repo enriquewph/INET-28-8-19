@@ -79,17 +79,17 @@ void lcd_subrutina_printFlecha(uint8_t flecha)
 {
     switch (flecha)
     {
-    case 0: //No flecha
+    case 0:
         lcd.print(' ');
         break;
-    case 1: //Tilde sola
+    case 1:
+        lcd.write(0);
+        break;
+    case 2:
         lcd.print('>');
         break;
-    case 2: //Flecha sola
+    case 3:
         lcd.print('-');
-        break;
-    case 3: //Flecha + Tilde
-        lcd.print(0);
         break;
     }
 }
@@ -102,9 +102,9 @@ void lcd_subrutina_printModo()
         lcd.print(F("MANUAL       "));
 }
 
-void lcd_subrutina_screenInfo()
+void lcd_subrutina_printTemp(float var)
 {
-    double temp_double = TEMPERATURA;
+    double temp_double = var;
     lcd.print(dtostrf(temp_double, 5, 2, lcdBuffer));
     /*
     char* dtostrf 	( 	double  	__val,
@@ -114,12 +114,29 @@ void lcd_subrutina_screenInfo()
 	) 	
     */
     lcd.write(2);
+}
 
-    sprintf(lcdBuffer, " |%3u%%", HUMEDAD);
+void lcd_subrutina_printHumedad(uint8_t var)
+{
+    sprintf(lcdBuffer, "%3u%%", var);
     lcd.print(lcdBuffer);
+}
 
-    sprintf(lcdBuffer, "|%5uLx", LUX);
+void lcd_subrutina_printLux(uint16_t var)
+{
+    sprintf(lcdBuffer, "%5uLx", var);
     lcd.print(lcdBuffer);
+}
+
+void lcd_subrutina_screenInfo()
+{
+    lcd_subrutina_printTemp(TEMPERATURA);
+    lcd.print(F(" |"));
+
+    lcd_subrutina_printHumedad(HUMEDAD);
+    lcd.print(F("|"));
+
+    lcd_subrutina_printLux(LUX);
 
     lcd.setCursor(0, 1);
     lcd.print(F("ESTADO"));

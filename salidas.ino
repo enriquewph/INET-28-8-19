@@ -11,11 +11,12 @@ void control_HUMEDAD()
         HUMEDAD_ESTADO = 0;
     }
     FUNCIONAMIENTO_REGADO = HUMEDAD_ESTADO;
-    Serial.println("riego " + String(HUMEDAD_ESTADO));
+    //Serial.println("riego " + String(HUMEDAD_ESTADO));
 }
+
 void control_TEMP()
 {
-    if (TEMPERATURA <= TEMPERATURA_TRIGGER && TEMPERATURA_BAJA_ESTADO == 0)
+    if (TEMPERATURA <= TEMPERATURA_BAJA_TRIGGER && TEMPERATURA_BAJA_ESTADO == 0)
     {
         TEMPERATURA_BAJA_ESTADO = 1;
         FUNCIONAMIENTO_TEMP = MODO_TEMP_CALENTANDO;
@@ -27,7 +28,7 @@ void control_TEMP()
         FUNCIONAMIENTO_TEMP = MODO_TEMP_STANDBY;
     }
 
-    if (TEMPERATURA >= TEMPERATURA_TRIGGER && TEMPERATURA_ALTA_ESTADO == 0)
+    if (TEMPERATURA >= TEMPERATURA_ALTA_TRIGGER && TEMPERATURA_ALTA_ESTADO == 0)
     {
         TEMPERATURA_ALTA_ESTADO = 1;
         FUNCIONAMIENTO_TEMP = MODO_TEMP_ENFRIANDO;
@@ -39,6 +40,12 @@ void control_TEMP()
         FUNCIONAMIENTO_TEMP = MODO_TEMP_STANDBY;
     }
 
-    Serial.println("estado calefactor " + String(TEMPERATURA_BAJA_ESTADO));
-    Serial.println("estado extractor " + String(TEMPERATURA_ALTA_ESTADO));
+    //Serial.println("estado calefactor " + String(TEMPERATURA_BAJA_ESTADO));
+    //Serial.println("estado extractor " + String(TEMPERATURA_ALTA_ESTADO));
+}
+
+
+void TEMPERATURA_UPDATE_RELEASE()
+{
+    TEMPERATURA_RELEASE= (TEMPERATURA_ALTA_TRIGGER + TEMPERATURA_BAJA_TRIGGER) / 2;
 }
