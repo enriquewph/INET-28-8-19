@@ -62,14 +62,23 @@ void IO_rutina()
     TEMPERATURA = TEMP_leer();
     LUX = LDR_leer();
 
-    if (FUNCIONAMIENTO_MODO = MODO_AUTOMATICO) //solo si se esta en automatico procesar y actualizar salidas.
+    if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO) //solo si se esta en automatico procesar y actualizar salidas.
     {
         control_HUMEDAD();
         control_TEMP();
 
-        SALIDA_EXTRACTOR = (FUNCIONAMIENTO_TEMP == MODO_TEMP_ENFRIANDO);
-        SALIDA_CALEFACTOR = (FUNCIONAMIENTO_TEMP == MODO_TEMP_CALENTANDO);
-        SALIDA_REGADOR = (FUNCIONAMIENTO_REGADO == MODO_REGADO_ENCENDIDO);
+        if (FUNCIONAMIENTO_TEMP == MODO_TEMP_ENFRIANDO)
+            SALIDA_EXTRACTOR = 1;
+        else
+            SALIDA_EXTRACTOR = 0;
+        if (FUNCIONAMIENTO_TEMP == MODO_TEMP_CALENTANDO)
+            SALIDA_CALEFACTOR = 1;
+        else
+            SALIDA_CALEFACTOR = 0;
+        if (FUNCIONAMIENTO_REGADO == MODO_REGADO_ENCENDIDO)
+            SALIDA_REGADOR = 1;
+        else
+            SALIDA_REGADOR = 0;
     }
 
     setearSalidas();
