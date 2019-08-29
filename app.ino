@@ -13,9 +13,8 @@ TODO:
 
 - implementar eventos
 - implementar control para el luxometro y las luces.
-- implementar bloqueo al cambio de variables automaticamente cuando esta en modo manual.
-- implementar salidas tanto en manual como en automatico, que el automatico actualize las del manual....
-       probaro lo de arriba
+- implementar bloqueo al cambio de variables automaticamente cuando esta en modo manual. --LISTO
+- implementar salidas tanto en manual como en automatico, que el automatico actualize las del manual.... --LISTO
 
 - implementar un amplificador al lm35 para obtener mayor resolucion de ganancia X10
 - https://electronics.stackexchange.com/questions/194165/increasing-the-resolution-of-a-sensor-by-using-an-amplifier

@@ -4,7 +4,7 @@ void lcd_eventHandler()
 {
     lcd.setCursor(0, 0);
 
-    switch (evento_ultimo.codigo_evento)
+    /*switch (evento_ultimo.codigo_evento)
     {
     case EV_NINGUNO: //No hay ningun evento, dejarla vacia q despues le mando para que muestre el menu desde aca.
 
@@ -87,7 +87,7 @@ void lcd_eventHandler()
             evento_ultimo.codigo_evento = EV_NINGUNO; // Una vez transcurrido el tiempo, borrar el ultimo evento y volver a normalidad.
         }
         break;
-    }
+    }*/
 }
 
 void lcd_createEvent(uint8_t codigo, uint8_t tipo)

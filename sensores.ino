@@ -1,9 +1,12 @@
 #include "header.h"
 
-float TEMP_leer()
-{
-    float temp = ADC_LEER_PROMEDIO(PIN_LM35, 20) * 0.44828;
-    return (temp);
+float TEMP_leer() //Funcion que devuelve la temperatura en grados centigrados, con precision de 5 digitos
+{ //aplicado circuito con OPAMP para la ganancia, compensado por sobrevoltaje, ganancia medida.
+    uint16_t adc_lecture = ADC_LEER_PROMEDIO(PIN_LM35, 20);
+
+    float mv = (adc_lecture / 1024.0) * 5000; //Calcular los milivolts en la entrada analogica
+    float temp = mv / 150; //1ºC -> 10mV
+    return (temp);                         
 }
 
 float HUM_leer()
@@ -34,6 +37,3 @@ uint16_t ADC_LEER_PROMEDIO(uint8_t pin, uint8_t mediciones)
     }
     return (adcReads / mediciones);
 }
-
-
-
