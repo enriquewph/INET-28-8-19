@@ -10,53 +10,60 @@ void lcd_eventHandler()
 
         break;
     case EV_TEMP_ALTA:
-        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
-            lcd.print(F("INFORMACION:        "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
-
-            lcd.setCursor(0, 1);                    //Ir al segundo renglon
-            lcd.print(F("ESTO ES UNA PRUEBA  "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
-
-            lcd.setCursor(0, 1);                    //Ir al tercer renglon
-            lcd.print(F("TERCER RENGLON WACHO"));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
-
-            lcd_clearLine(3);                       //borro el cuarto renglon, no hace falta setear el cursor antes.
+            TEX_EV_TEMP_ALTA();
         }
         else
         {
             evento_ultimo.codigo_evento = EV_NINGUNO; // Una vez transcurrido el tiempo, borrar el ultimo evento y volver a normalidad.
         }
         break;
-         case EV_TEMP_BAJA:
-        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+    case EV_TEMP_BAJA:
+        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
-            lcd.print(F("INFORMACION:        "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
-
-            lcd.setCursor(0, 1);                    //Ir al segundo renglon
-            lcd.print(F("ESTO ES UNA PRUEBA  "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
-
-            lcd.setCursor(0, 1);                    //Ir al tercer renglon
-            lcd.print(F("TERCER RENGLON WACHO"));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
-
-            lcd_clearLine(3);                       //borro el cuarto renglon, no hace falta setear el cursor antes.
+            TEX_EV_TEMP_BAJA();
         }
         else
         {
             evento_ultimo.codigo_evento = EV_NINGUNO; // Una vez transcurrido el tiempo, borrar el ultimo evento y volver a normalidad.
         }
         break;
-          case EV_HUMEDAD_BAJA:
-        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+    case EV_HUMEDAD_BAJA:
+        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
-            lcd.print(F("INFORMACION:        "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
-
-            lcd.setCursor(0, 1);                    //Ir al segundo renglon
-            lcd.print(F("ESTO ES UNA PRUEBA  "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
-
-            lcd.setCursor(0, 1);                    //Ir al tercer renglon
-            lcd.print(F("TERCER RENGLON WACHO"));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
-
-            lcd_clearLine(3);                       //borro el cuarto renglon, no hace falta setear el cursor antes.
+            TEX_EV_HUMEDAD_BAJA();
+        }
+        else
+        {
+            evento_ultimo.codigo_evento = EV_NINGUNO; // Una vez transcurrido el tiempo, borrar el ultimo evento y volver a normalidad.
+        }
+        break;
+    case EV_HUMEDAD_ALTA:
+        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        {
+            
+            TEX_EV_HUMEDAD_ALTA();
+        }
+        else
+        {
+            evento_ultimo.codigo_evento = EV_NINGUNO; // Una vez transcurrido el tiempo, borrar el ultimo evento y volver a normalidad.
+        }
+        break;
+    case EV_LUZ_ALTA:
+        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        {
+            TEX_EV_LUZ_ALTA();
+        }
+        else
+        {
+            evento_ultimo.codigo_evento = EV_NINGUNO; // Una vez transcurrido el tiempo, borrar el ultimo evento y volver a normalidad.
+        }
+        break;
+    case EV_LUZ_BAJA:
+        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        {
+            TEX_EV_LUZ_BAJA();
         }
         else
         {
@@ -66,7 +73,7 @@ void lcd_eventHandler()
     }
 }
 
-void lcd_createEvent(uint8_t codigo,uint8_t tipo)
+void lcd_createEvent(uint8_t codigo, uint8_t tipo)
 {
     //cargar los datos del evento en la estructura.
     evento_ultimo.codigo_evento = codigo;
@@ -79,8 +86,75 @@ void lcd_createEvent(uint8_t codigo,uint8_t tipo)
         evento_ultimoIndice++;
     else
         evento_ultimoIndice = 0; //se sobrepaso, volver a 0...
-    
+
     lcd_eventHandler();
 }
 
-void 
+void TEX_EV_TEMP_ALTA()
+{
+    lcd.setCursor(4, 0);   
+    lcd.print(F("INFORMACION:    ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd.setCursor(2, 1);                  //Ir al segundo renglon
+    lcd.print(F("TEMPERATURA ALTA  ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd.setCursor(1, 2);                  //Ir al tercer renglon
+    lcd.print(F("PRENDIENDO EXTRATOR ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd_clearLine(3);
+}
+void TEX_EV_TEMP_BAJA()
+{
+
+    lcd.setCursor(2, 1);                  //Ir al segundo renglon
+    lcd.print(F("TEMPERATURA BAJA  ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd.setCursor(0, 2);                  //Ir al tercer renglon
+    lcd.print(F("PRENDIENDO CALEFACTOR")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd_clearLine(3);
+}
+void TEX_EV_HUMEDAD_ALTA()
+{
+
+    lcd.setCursor(4, 1);                  //Ir al segundo renglon
+    lcd.print(F("HUMEDAD ALTA    ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd.setCursor(0, 2);                  //Ir al tercer renglon
+    lcd.print(F("APAGANDO SIST.RIEGO")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd_clearLine(3);
+
+}
+void TEX_EV_HUMEDAD_BAJA()
+{
+    lcd.setCursor(4, 1);                  //Ir al segundo renglon
+    lcd.print(F("HUMEDAD BAJA    ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd.setCursor(0, 2);                  //Ir al tercer renglon
+    lcd.print(F("PRENDIENDO SIST.RIEGO")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd_clearLine(3);
+}
+void TEX_EV_LUZ_ALTA()
+{
+    lcd.setCursor(6, 1);                  //Ir al segundo renglon
+    lcd.print(F("LUZ ALTA      ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd.setCursor(5, 2);                  //Ir al tercer renglon
+    lcd.print(F("APAGANDO LUCES     ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd_clearLine(3);
+}
+void TEX_EV_LUZ_BAJA()
+{
+    lcd.setCursor(6, 1);                  //Ir al segundo renglon
+    lcd.print(F("LUZ BAJA      ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd.setCursor(2, 2);                  //Ir al tercer renglon
+    lcd.print(F("PRENDIENDO LUCES  ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+    lcd_clearLine(3);
+}
+
+

@@ -31,6 +31,8 @@ void IO_rutina()
     control_HUMEDAD();
     control_TEMP();
 
+    
+
     //Serial.println("Temperatura: " + String(TEMPERATURA));
     //Serial.println("humedad actual: " + String(HUMEDAD) + "  humedad minima: " + String(HUMEDAD_TRIGGER) + "  humedad maxima: " + String(HUMEDAD_RELEASE));
     //Serial.println("lux: " + String(LUX));
