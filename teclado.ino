@@ -204,6 +204,21 @@ void teclado_update()
                 lcd_editando = 1;
             break;
         case 5:
+            if (TECLA_PRESIONADA == TECLA_ABAJO)
+                lcd_index_2++;
+            if (TECLA_PRESIONADA == TECLA_ARRIBA)
+                lcd_index_2--;
+
+            if (TECLA_PRESIONADA == TECLA_VOLVER)
+                if (lcd_editando)
+                    lcd_editando = 0;
+                else
+                    lcd_index_2 = 0;
+
+            if (TECLA_PRESIONADA == TECLA_ENTER)
+                lcd_editando = 1;
+            break;
+        case 6:
             if (TECLA_PRESIONADA == TECLA_ARRIBA)
                 lcd_index_2--;
 

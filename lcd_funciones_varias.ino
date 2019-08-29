@@ -124,7 +124,7 @@ void lcd_subrutina_printHumedad(uint8_t var)
 
 void lcd_subrutina_printLux(uint16_t var)
 {
-    sprintf(lcdBuffer, "%5uLx", var);
+    sprintf(lcdBuffer, "%4uLx", var);
     lcd.print(lcdBuffer);
 }
 
@@ -134,7 +134,7 @@ void lcd_subrutina_screenInfo()
     lcd.print(F(" |"));
 
     lcd_subrutina_printHumedad(HUMEDAD);
-    lcd.print(F("|"));
+    lcd.print(F("| "));
 
     lcd_subrutina_printLux(LUX);
 

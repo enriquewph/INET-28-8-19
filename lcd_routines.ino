@@ -84,10 +84,13 @@ void lcd_subrutina_menuParametros()
     lcd.print(" ");
 
     lcd.setCursor(0, 3);
-    lcd.print(F("LUX      "));
+    lcd.print(F("LUX  "));
     lcd_subrutina_printFlecha(lcd_index_2 == 5);
-    lcd_subrutina_printLux(LUX_TARGET);
-    lcd.print(F("       "));
+    lcd_subrutina_printLux(LUX_BAJO);
+    lcd.print(F(" "));
+    lcd_subrutina_printFlecha(lcd_index_2 == 6);
+    lcd_subrutina_printLux(LUX_ALTO);
+    lcd.print(F(" "));
     
     if (lcd_editando)
     {
@@ -110,7 +113,11 @@ void lcd_subrutina_menuParametros()
             guardar_variables();
             break;
         case 5:
-            LUX_TARGET = lcd_subrutina_editarVar5digitos(LUX_TARGET, 0, 50000, 10, 3);
+            LUX_BAJO = lcd_subrutina_editarVar4digitos(LUX_BAJO, 0, LUX_ALTO, 6, 3);
+            guardar_variables();
+            break;
+        case 6:
+            LUX_ALTO = lcd_subrutina_editarVar4digitos(LUX_ALTO, LUX_BAJO, 9999, 14, 3);
             guardar_variables();
             break;
         }
@@ -336,15 +343,15 @@ uint8_t lcd_subrutina_editarVar3digitos(uint8_t variable, uint8_t limite_inferio
 
 
 
-uint16_t lcd_subrutina_editarVar5digitos(uint16_t variable, uint16_t limite_inferior, uint16_t limite_superior, uint8_t cur_x, uint8_t cur_y)
+uint16_t lcd_subrutina_editarVar4digitos(uint16_t variable, uint16_t limite_inferior, uint16_t limite_superior, uint8_t cur_x, uint8_t cur_y)
 {
     lcd.setCursor(cur_x, cur_y);
     lcd.blink();
 
     uint8_t cifra = 0; //0 centena, 1 decena, 2 unidad
 
-    char digitos[6];
-    sprintf(digitos, "%05u\0", variable);
+    char digitos[5];
+    sprintf(digitos, "%04u\0", variable);
 
     while (lcd_editando)
     {
@@ -380,13 +387,13 @@ uint16_t lcd_subrutina_editarVar5digitos(uint16_t variable, uint16_t limite_infe
             if (cifra > 0)
                 cifra--;
             else
-                cifra = 4;
+                cifra = 3;
             break;
 
         default: //se presiono algun numero.......
             digitos[cifra] = entrada;
 
-            if (cifra < 4)
+            if (cifra < 3)
                 cifra++;
             else
                 cifra = 0;

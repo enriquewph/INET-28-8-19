@@ -53,7 +53,7 @@ void setearSalidas()
     analogWrite(PIN_DIMMER_LUZ, pwmmap(POTENCIA_LUCES, 0, 100, 0, 255));
 }
 
-uint8_t pwmmap(uint8_t x, uint8_t in_min, uint8_t in_max, uint8_t out_min, uint8_t out_max)
+uint8_t pwmmap(uint16_t x, uint16_t in_min, uint16_t in_max, uint8_t out_min, uint8_t out_max)
 {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

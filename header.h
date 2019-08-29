@@ -84,11 +84,8 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, FILAS, COLUMNAS);
 float TEMPERATURA;
 uint8_t HUMEDAD;
 uint16_t LUX;
-/*
-Direct sunlight is approximately 32,000 to 100,000 lux. 
-Full-sun plants usually need at least 25,000 to 50,000 lux to do well, 
-with increased productivity occurring when light levels are near full sunlight.
-*/
+
+#define LM35_CORRECCION 0.0f
 
 uint8_t SALIDA_EXTRACTOR;
 uint8_t SALIDA_CALEFACTOR;
@@ -107,7 +104,8 @@ bool HUMEDAD_ESTADO;
 uint8_t HUMEDAD_TRIGGER;
 uint8_t HUMEDAD_RELEASE;
 
-uint16_t LUX_TARGET;
+uint16_t LUX_BAJO;
+uint16_t LUX_ALTO;
 
 //EVENTOS
 
@@ -146,6 +144,7 @@ uint8_t evento_ultimoIndice = 0;
 #define EEPROM_ADDRESS_TEMPERATURA_ALTA_TRIGGER 10
 #define EEPROM_ADDRESS_HUMEDAD_TRIGGER 20
 #define EEPROM_ADDRESS_HUMEDAD_RELEASE 30
-#define EEPROM_ADDRESS_LUX_TARGET 40
+#define EEPROM_ADDRESS_LUX_BAJO 40
+#define EEPROM_ADDRESS_LUX_ALTO 50
 
 #endif

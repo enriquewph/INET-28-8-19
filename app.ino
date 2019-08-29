@@ -9,15 +9,8 @@ INTEGRANTES:
 
 /*
 TODO:
-- implementar eeprom --LISTO
-
 - implementar eventos
 - implementar control para el luxometro y las luces.
-- implementar bloqueo al cambio de variables automaticamente cuando esta en modo manual. --LISTO
-- implementar salidas tanto en manual como en automatico, que el automatico actualize las del manual.... --LISTO
-
-- implementar un amplificador al lm35 para obtener mayor resolucion de ganancia X10
-- https://electronics.stackexchange.com/questions/194165/increasing-the-resolution-of-a-sensor-by-using-an-amplifier
 - organizar, distribuir y comentar el codigo.
 */
 
@@ -79,7 +72,16 @@ void IO_rutina()
             SALIDA_REGADOR = 1;
         else
             SALIDA_REGADOR = 0;
+        
+        if (LUX <= LUX_BAJO)
+            POTENCIA_LUCES = 100;
+        if (LUX >= LUX_ALTO)
+            POTENCIA_LUCES = 0;
+        if (LUX >= LUX_BAJO && LUX <= LUX_ALTO)
+        {
+            POTENCIA_LUCES = 100 - pwmmap(LUX, LUX_BAJO, LUX_ALTO, 0, 100); //a mayor luz detectada, menor pwm
+        }
     }
-
+    
     setearSalidas();
 }
