@@ -61,6 +61,7 @@ void IO_rutina()
     HUMEDAD = HUM_leer();
     TEMPERATURA = TEMP_leer();
     LUX = LDR_leer();
+    EV_CREACION();
 
     if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO) //solo si se esta en automatico procesar y actualizar salidas.
     {
