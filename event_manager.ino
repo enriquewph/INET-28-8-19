@@ -10,7 +10,7 @@ void lcd_eventHandler()
 
         break;
     case EV_TEMP_ALTA:
-        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
             if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
             {
@@ -23,7 +23,7 @@ void lcd_eventHandler()
         }
         break;
     case EV_TEMP_BAJA:
-        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
             if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
             {
@@ -36,7 +36,7 @@ void lcd_eventHandler()
         }
         break;
     case EV_HUMEDAD_BAJA:
-        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
             if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
             {
@@ -49,7 +49,7 @@ void lcd_eventHandler()
         }
         break;
     case EV_HUMEDAD_ALTA:
-        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
             if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
             {
@@ -62,7 +62,7 @@ void lcd_eventHandler()
         }
         break;
     case EV_LUZ_ALTA:
-        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
             if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
             {
@@ -75,7 +75,7 @@ void lcd_eventHandler()
         }
         break;
     case EV_LUZ_BAJA:
-        if (millis() < evento_ultimo.tiempo_evento + 1000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
             if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO)
             {
@@ -109,6 +109,7 @@ void lcd_createEvent(uint8_t codigo, uint8_t tipo)
 
 void TEX_EV_TEMP_ALTA()
 {
+    lcd_clear();
     lcd.setCursor(4, 0);
     lcd.print(F("INFORMACION:    ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
 
@@ -122,7 +123,7 @@ void TEX_EV_TEMP_ALTA()
 }
 void TEX_EV_TEMP_BAJA()
 {
-
+    lcd_clear();
     lcd.setCursor(2, 1);                //Ir al segundo renglon
     lcd.print(F("TEMPERATURA BAJA  ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
 
@@ -133,7 +134,7 @@ void TEX_EV_TEMP_BAJA()
 }
 void TEX_EV_HUMEDAD_ALTA()
 {
-
+    lcd_clear();
     lcd.setCursor(4, 1);              //Ir al segundo renglon
     lcd.print(F("HUMEDAD ALTA    ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
 
@@ -144,6 +145,7 @@ void TEX_EV_HUMEDAD_ALTA()
 }
 void TEX_EV_HUMEDAD_BAJA()
 {
+    lcd_clear();
     lcd.setCursor(4, 1);              //Ir al segundo renglon
     lcd.print(F("HUMEDAD BAJA    ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
 
@@ -154,6 +156,7 @@ void TEX_EV_HUMEDAD_BAJA()
 }
 void TEX_EV_LUZ_ALTA()
 {
+    lcd_clear();
     lcd.setCursor(6, 1);            //Ir al segundo renglon
     lcd.print(F("LUZ ALTA      ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
 
@@ -164,6 +167,7 @@ void TEX_EV_LUZ_ALTA()
 }
 void TEX_EV_LUZ_BAJA()
 {
+    lcd_clear();
     lcd.setCursor(6, 1);            //Ir al segundo renglon
     lcd.print(F("LUZ BAJA      ")); //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
 
