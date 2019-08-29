@@ -11,7 +11,6 @@ void control_HUMEDAD()
         HUMEDAD_ESTADO = MODO_REGADO_APAGADO;
     }
     FUNCIONAMIENTO_REGADO = HUMEDAD_ESTADO;
-    //Serial.println("riego " + String(HUMEDAD_ESTADO));
 }
 
 void control_TEMP()
@@ -39,13 +38,22 @@ void control_TEMP()
         TEMPERATURA_ALTA_ESTADO = 0;
         FUNCIONAMIENTO_TEMP = MODO_TEMP_STANDBY;
     }
-
-    //Serial.println("estado calefactor " + String(TEMPERATURA_BAJA_ESTADO));
-    //Serial.println("estado extractor " + String(TEMPERATURA_ALTA_ESTADO));
 }
-
 
 void TEMPERATURA_UPDATE_RELEASE()
 {
-    TEMPERATURA_RELEASE= (TEMPERATURA_ALTA_TRIGGER + TEMPERATURA_BAJA_TRIGGER) / 2;
+    TEMPERATURA_RELEASE = (TEMPERATURA_ALTA_TRIGGER + TEMPERATURA_BAJA_TRIGGER) / 2;
+}
+
+void setearSalidas()
+{
+    digitalWrite(PIN_RELAY_MOTOR, SALIDA_EXTRACTOR);
+    digitalWrite(PIN_RELAY_CALEFACTOR, SALIDA_CALEFACTOR);
+    digitalWrite(PIN_RELAY_RIEGO, SALIDA_REGADOR);
+    analogWrite(PIN_DIMMER_LUZ, pwmmap(POTENCIA_LUCES, 0, 100, 0, 255));
+}
+
+uint8_t pwmmap(uint8_t x, uint8_t in_min, uint8_t in_max, uint8_t out_min, uint8_t out_max)
+{
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
