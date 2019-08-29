@@ -22,7 +22,7 @@ uint16_t LDR_leer()
 {
     const long A = 1000; //Resistencia en oscuridad en KΩ
     const int B = 11;    //Resistencia a la luz (10 Lux) en KΩ
-    const int Rc = 10;   //Resistencia calibracion en KΩ
+    const int Rc = 100;   //Resistencia calibracion en KΩ
 
     uint16_t valor_ldr = ADC_LEER_PROMEDIO(PIN_LDR, 20);
 
