@@ -4,11 +4,11 @@ void control_HUMEDAD()
 {
     if (HUMEDAD <= HUMEDAD_TRIGGER && HUMEDAD_ESTADO == 0)
     {
-        HUMEDAD_ESTADO = 1;
+        HUMEDAD_ESTADO = MODO_REGADO_ENCENDIDO;
     }
     if (HUMEDAD >= HUMEDAD_RELEASE && HUMEDAD_ESTADO == 1)
     {
-        HUMEDAD_ESTADO = 0;
+        HUMEDAD_ESTADO = MODO_REGADO_APAGADO;
     }
     FUNCIONAMIENTO_REGADO = HUMEDAD_ESTADO;
     //Serial.println("riego " + String(HUMEDAD_ESTADO));

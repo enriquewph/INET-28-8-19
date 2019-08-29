@@ -9,7 +9,43 @@ void lcd_eventHandler()
     case EV_NINGUNO: //No hay ningun evento, dejarla vacia q despues le mando para que muestre el menu desde aca.
 
         break;
-    case EV_PRUEBA:
+    case EV_TEMP_ALTA:
+        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        {
+            lcd.print(F("INFORMACION:        "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+            lcd.setCursor(0, 1);                    //Ir al segundo renglon
+            lcd.print(F("ESTO ES UNA PRUEBA  "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+            lcd.setCursor(0, 1);                    //Ir al tercer renglon
+            lcd.print(F("TERCER RENGLON WACHO"));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+            lcd_clearLine(3);                       //borro el cuarto renglon, no hace falta setear el cursor antes.
+        }
+        else
+        {
+            evento_ultimo.codigo_evento = EV_NINGUNO; // Una vez transcurrido el tiempo, borrar el ultimo evento y volver a normalidad.
+        }
+        break;
+         case EV_TEMP_BAJA:
+        if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
+        {
+            lcd.print(F("INFORMACION:        "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+            lcd.setCursor(0, 1);                    //Ir al segundo renglon
+            lcd.print(F("ESTO ES UNA PRUEBA  "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+            lcd.setCursor(0, 1);                    //Ir al tercer renglon
+            lcd.print(F("TERCER RENGLON WACHO"));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
+
+            lcd_clearLine(3);                       //borro el cuarto renglon, no hace falta setear el cursor antes.
+        }
+        else
+        {
+            evento_ultimo.codigo_evento = EV_NINGUNO; // Una vez transcurrido el tiempo, borrar el ultimo evento y volver a normalidad.
+        }
+        break;
+          case EV_HUMEDAD_BAJA:
         if (millis() < evento_ultimo.tiempo_evento + 2000) //entiendase 2000 por el tiempo que muestra el mensaje (2000 miliSegundos)
         {
             lcd.print(F("INFORMACION:        "));   //le agrege espacios hasta llegar al caracter numero 19 contando desde 0.
@@ -46,3 +82,5 @@ void lcd_createEvent(uint8_t codigo,uint8_t tipo)
     
     lcd_eventHandler();
 }
+
+void 
