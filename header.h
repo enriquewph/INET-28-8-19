@@ -139,7 +139,7 @@ bool EV_ERROR_SENSOR_LDR_ACTIVADO = 0;
 #define EV_ERROR 2
 
 //CANTIDAD DE EVENTOS A GUARDAR
-#define EVENTOS_MEMORIA 12
+#define EVENTOS_MEMORIA 5
 
 #define TIEMPO_AVISO_LCD 2000 //tiempo en milisegundos a mostrar el aviso en el lcd.
 

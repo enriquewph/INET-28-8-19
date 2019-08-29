@@ -7,15 +7,9 @@ INTEGRANTES:
 - Philippeaux, Enrique
 */
 
-/*
-TODO:
-- implementar LISTA DE EVENTOS
-- organizar, distribuir y comentar el codigo.
-*/
-
 void setup()
 {
-    // put your setup code here, to run once:
+    //inicializar p. serie, eeprom y I/O
     Serial.begin(9600);
     EEPROM.begin();
 
@@ -28,19 +22,13 @@ void setup()
     pinMode(PIN_RELAY_RIEGO, OUTPUT);
     pinMode(PIN_DIMMER_LUZ, OUTPUT);
 
+    //cargar variables de EEPROM y iniciar libreria de LCD
     cargar_variables();
     lcd_subrutina_init();
 
+    //iniciar timers a millis
     timer_entradas = millis();
     timeout_screensaver = millis();
-}
-
-void serialEvent()
-{
-    String inputString = Serial.readStringUntil('\n');
-    if (inputString == "A")
-    {
-    }
 }
 
 void loop()
@@ -50,17 +38,22 @@ void loop()
         IO_rutina();
         timer_entradas = millis();
     }
+
+    //Procesar eventos, actualizar LCD, y leer teclado.
     lcd_eventHandler();
 }
 
 void IO_rutina()
 {
+    //leer sensores
     HUMEDAD = HUM_leer();
     TEMPERATURA = TEMP_leer();
     LUX = LDR_leer();
 
+    //verificar si tienen errores...
     verificarSensoresPorErrores();
 
+    //actualizar variables de salidas si se esta en modo automatico.
     if (FUNCIONAMIENTO_MODO == MODO_AUTOMATICO) //solo si se esta en automatico procesar y actualizar salidas.
     {
         control_HUMEDAD();
@@ -89,10 +82,12 @@ void IO_rutina()
         }
     }
 
+    //mandar las variables de salidas a las salidas reales.
     setearSalidas();
 }
 
-void verificarSensoresPorErrores() //SE EJECUTA TODO EL TIEMpo
+//verificamos si hay errores y los mostramos en el display 
+void verificarSensoresPorErrores() 
 {
     EV_ERROR_PRESENTE = 0;
     if (HUMEDAD == 0 || HUMEDAD > 100)

@@ -135,8 +135,7 @@ void teclado_update()
                 if (TECLA_PRESIONADA == TECLA_ABAJO)
                 {
                     if (lcd_mostrarevento_id > 0)
-                        if (evento_lista[lcd_mostrarevento_id - 1].codigo_evento != EV_NINGUNO) //verificar si el evento siguiente existe
-                            lcd_mostrarevento_id--;
+                        lcd_mostrarevento_id--;
                     else
                         lcd_mostrarevento_id = EVENTOS_MEMORIA;
                 }
@@ -144,8 +143,7 @@ void teclado_update()
                 if (TECLA_PRESIONADA == TECLA_ARRIBA)
                 {
                     if (lcd_mostrarevento_id < EVENTOS_MEMORIA)
-                        if (evento_lista[lcd_mostrarevento_id + 1].codigo_evento != EV_NINGUNO) //verificar si el evento siguiente existe
-                            lcd_mostrarevento_id++;
+                        lcd_mostrarevento_id++;
                     else
                         lcd_mostrarevento_id = 0; //se sobrepaso, volver a 0...
                 }
