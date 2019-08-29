@@ -1,4 +1,5 @@
 #include "header.h"
+#include <EEPROM.h>
 /*
 ITS VILLADA - INET - GRUPO 7 - 28/08/2019
 INTEGRANTES:
@@ -24,6 +25,7 @@ void setup()
 {
     // put your setup code here, to run once:
     Serial.begin(9600);
+    EEPROM.begin();
 
     cargar_variables();
     lcd_subrutina_init();

@@ -95,18 +95,23 @@ void lcd_subrutina_menuParametros()
         {
         case 1:
             TEMPERATURA_BAJA_TRIGGER = lcd_subrutina_editarVar2digitos(TEMPERATURA_BAJA_TRIGGER, 0, TEMPERATURA_ALTA_TRIGGER, 6, 1);
+            guardar_variables();
             break;
         case 2:
             TEMPERATURA_ALTA_TRIGGER = lcd_subrutina_editarVar2digitos(TEMPERATURA_ALTA_TRIGGER, TEMPERATURA_BAJA_TRIGGER, 100, 14, 1);
+            guardar_variables();
             break;
         case 3:
             HUMEDAD_TRIGGER = lcd_subrutina_editarVar3digitos(HUMEDAD_TRIGGER, 0, HUMEDAD_RELEASE, 7, 2);
+            guardar_variables();
             break;
         case 4:
             HUMEDAD_RELEASE = lcd_subrutina_editarVar3digitos(HUMEDAD_RELEASE, HUMEDAD_TRIGGER, 100, 15, 2); //el max no puede ser menor que el minimo...
+            guardar_variables();
             break;
         case 5:
             LUX_TARGET = lcd_subrutina_editarVar5digitos(LUX_TARGET, 0, 50000, 10, 3);
+            guardar_variables();
             break;
         }
     }
@@ -248,7 +253,6 @@ float lcd_subrutina_editarVar2digitos(float variable, float limite_inferior, flo
     }
 
     lcd.noBlink();
-    guardar_variables();
 
     String string_editado = digitos;
     float numero_editado = (float) string_editado.toInt();
@@ -319,7 +323,6 @@ uint8_t lcd_subrutina_editarVar3digitos(uint8_t variable, uint8_t limite_inferio
     }
 
     lcd.noBlink();
-    guardar_variables();
 
     String string_editado = digitos;
     uint8_t numero_editado = string_editado.toInt();
@@ -392,7 +395,6 @@ uint16_t lcd_subrutina_editarVar5digitos(uint16_t variable, uint16_t limite_infe
     }
 
     lcd.noBlink();
-    guardar_variables();
 
     String string_editado = digitos;
     uint16_t numero_editado = string_editado.toInt();
