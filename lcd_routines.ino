@@ -79,7 +79,7 @@ void lcd_subrutina_menuParametros()
     lcd_subrutina_printHumedad(HUMEDAD_TRIGGER);
     lcd.print("   ");
     lcd_subrutina_printFlecha(lcd_index_2 == 4);
-    lcd_subrutina_printHumedad(HUMEDAD_RELEASE);
+    lcd_subrutina_printHumedad(HUMEDAD_RELEASE); //hola esto es un cambio
     lcd.print(" ");
 
     lcd.setCursor(0, 3);
